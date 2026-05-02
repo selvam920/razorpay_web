@@ -18,8 +18,7 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   eventify: ^1.0.1
-  package_info_plus: ^9.0.0
-  universal_platform: ^1.0.0+1
+  package_info_plus: ^10.1.0
   web:
   flutter_inappwebview: ^6.1.5
 

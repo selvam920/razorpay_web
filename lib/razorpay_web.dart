@@ -1,8 +1,8 @@
 import 'package:eventify/eventify.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:universal_platform/universal_platform.dart';
 
 import 'razorpay_events.dart';
 import 'razorpay_flutter_windows.dart';
@@ -58,7 +58,7 @@ class Razorpay {
     }
 
     // Handle Windows platform via InAppWebView
-    if (UniversalPlatform.isWindows) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.windows) {
       if (context == null) {
         _handleResult({
           'type': _CODE_PAYMENT_ERROR,
@@ -76,7 +76,7 @@ class Razorpay {
       return;
     }
 
-    if (UniversalPlatform.isAndroid) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       _channel.invokeMethod('setPackageName', packageInfo.packageName);
     }
@@ -135,7 +135,7 @@ class Razorpay {
   /// Retrieves lost responses from platform
   void _resync() async {
     // Skip resync for Windows and Web as they don't use method channels
-    if (UniversalPlatform.isWindows || UniversalPlatform.isWeb) {
+    if (kIsWeb || defaultTargetPlatform == TargetPlatform.windows) {
       return;
     }
 
