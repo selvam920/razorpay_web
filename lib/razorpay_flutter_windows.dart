@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:material_ui/material_ui.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:drago_inappwebview/drago_inappwebview.dart';
 
 import 'razorpay_events.dart';
 
@@ -101,8 +101,8 @@ class RazorpayFlutterWindows {
     
     script.onerror = function(e) {
       console.error('Failed to load Razorpay script');
-      if (window.flutter_inappwebview) {
-        window.flutter_inappwebview.callHandler('onPaymentError', JSON.stringify({
+      if (window.drago_inappwebview) {
+        window.drago_inappwebview.callHandler('onPaymentError', JSON.stringify({
           code: 'SCRIPT_LOAD_ERROR',
           description: 'Failed to load Razorpay. Check internet connection.'
         }));
@@ -120,23 +120,23 @@ class RazorpayFlutterWindows {
         var options = $optionsJson;
         
         options.handler = function(response) {
-          if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('onPaymentSuccess', JSON.stringify(response));
+          if (window.drago_inappwebview) {
+            window.drago_inappwebview.callHandler('onPaymentSuccess', JSON.stringify(response));
           }
         };
         
         if (!options.modal) options.modal = {};
         options.modal.ondismiss = function() {
-          if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('onPaymentDismiss', '');
+          if (window.drago_inappwebview) {
+            window.drago_inappwebview.callHandler('onPaymentDismiss', '');
           }
         };
         
         var rzp = new Razorpay(options);
         
         rzp.on('payment.failed', function(response) {
-          if (window.flutter_inappwebview) {
-            window.flutter_inappwebview.callHandler('onPaymentError', JSON.stringify(response.error));
+          if (window.drago_inappwebview) {
+            window.drago_inappwebview.callHandler('onPaymentError', JSON.stringify(response.error));
           }
         });
         
@@ -144,8 +144,8 @@ class RazorpayFlutterWindows {
         
       } catch (error) {
         console.error('Initialization error:', error);
-        if (window.flutter_inappwebview) {
-          window.flutter_inappwebview.callHandler('onPaymentError', JSON.stringify({
+        if (window.drago_inappwebview) {
+          window.drago_inappwebview.callHandler('onPaymentError', JSON.stringify({
             code: 'INIT_ERROR',
             description: error.message
           }));

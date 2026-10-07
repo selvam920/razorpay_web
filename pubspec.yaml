@@ -20,7 +20,10 @@ dependencies:
   eventify: ^1.0.1
   package_info_plus: ^10.1.0
   web:
-  flutter_inappwebview: ^6.1.5
+  drago_inappwebview:
+    git:
+      url: https://github.com/selvam920/drago_inappwebview
+      path: drago_inappwebview
 
   material_ui: any
 dev_dependencies:
