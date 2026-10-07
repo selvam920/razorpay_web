@@ -5,7 +5,7 @@
 import FlutterMacOS
 import Foundation
 
-import flutter_inappwebview_macos
+import drago_inappwebview
 import package_info_plus
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
